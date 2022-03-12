@@ -1,0 +1,32 @@
+<h1>Time for next word</h1>
+<h1 id="timeleft"></h1>
+<h1 id="word"></h1>
+<div id="freestyle_data"
+  time_per_word=<%= @freestyle_session.time_per_word %>>
+</div>
+<div>
+<%= link "Go Back", to: Routes.freestyle_path(@conn, :index) %>
+</div>
+
+
+<script>
+function getWords() {
+    fetch('./api/application.json')
+        .then(
+            function(response) {
+                if (response.status !== 200) {
+                    return
+                }
+            }
+
+            response.json().then(function(data)) {
+                return data
+            }
+        )
+        .catch(function(err)) {
+            console.log('Fetch Error', err)
+        }
+}
+
+
+</script>

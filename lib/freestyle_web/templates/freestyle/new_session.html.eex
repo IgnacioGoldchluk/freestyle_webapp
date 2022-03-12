@@ -1,0 +1,12 @@
+<h1>New Freestyle Session</h1>
+
+<%= form_for @conn, Routes.freestyle_path(@conn, :new), fn f -> %>
+    <%= label f, :duration, "Duracion" %>
+    <%= select f, :duration, durations() %>
+
+    <%= label f, :difficulty, "Dificultad" %>
+    <%= select f, :difficulty, difficulties() %>
+    <div>
+    <%= submit "PLAY!" %>
+    </div>
+    <% end %>

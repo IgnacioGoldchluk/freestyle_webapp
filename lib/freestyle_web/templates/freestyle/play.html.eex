@@ -1,0 +1,39 @@
+<h1 id="timeleft"></h1>
+<h1 id="word"></h1>
+<div id="freestyle_data"
+  totalSeconds=<%= @freestyle_session.duration %>
+  words=<%= @freestyle_session.words %>
+  difficulty=<%= @freestyle_session.difficulty %>>
+</div>
+<div>
+<%= link "Go Back", to: Routes.freestyle_path(@conn, :index) %>
+</div>
+
+<script>
+  // Set the date we're counting down to
+  const freestyle_data = document.getElementById('freestyle_data')
+  const totalSeconds = freestyle_data.getAttribute('totalSeconds')
+  const words = freestyle_data.getAttribute('words').split(',')
+  const wordInterval = Math.floor(totalSeconds / words.length)
+
+  var secondsElapsed = 0
+  var countDown = 3
+  // Update the count down every 1 second
+  var x = setInterval(function () {
+    if (countDown > 0) {
+      document.getElementById('timeleft').innerHTML = countDown
+      document.getElementById('word').innerHTML = ''
+      countDown -= 1
+    } else {
+      secondsElapsed += 1
+      var timeLeft = totalSeconds - secondsElapsed
+      document.getElementById('timeleft').innerHTML = timeLeft + 1
+      document.getElementById('word').innerHTML = words[Math.floor(timeLeft/wordInterval)]
+      if (timeLeft < 0) {
+	      document.getElementById('timeleft').innerHTML = 'TIEMPO!'
+        document.getElementById('word').innerHTML = ''
+        clearInterval(x)
+    }
+  }
+  }, 1000)
+</script>
