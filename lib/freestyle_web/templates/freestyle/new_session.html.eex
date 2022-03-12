@@ -1,7 +1,7 @@
 <h1>New Freestyle Session</h1>
 
 <%= form_for @conn, Routes.freestyle_path(@conn, :new), fn f -> %>
-    <%= label f, :duration, "Duracion" %>
+    <%= label f, :duration, "Duracion (segundos)" %>
     <%= select f, :duration, durations() %>
 
     <%= label f, :difficulty, "Dificultad" %>

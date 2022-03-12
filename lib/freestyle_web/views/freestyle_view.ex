@@ -2,7 +2,7 @@ defmodule FreestyleWeb.FreestyleView do
   use FreestyleWeb, :view
 
   def durations() do
-    [60, 120]
+    [60, 120, "Infinite"]
   end
 
   def difficulties() do

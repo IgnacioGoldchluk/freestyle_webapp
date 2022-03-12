@@ -16,7 +16,7 @@ defmodule FreestyleWeb.Router do
 
   scope "/api", FreestyleWeb do
     pipe_through :api
-    resources "/", WordsController
+    resources "/", WordController
   end
 
   scope "/", FreestyleWeb do

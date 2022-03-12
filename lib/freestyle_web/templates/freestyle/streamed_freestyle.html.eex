@@ -1,8 +1,8 @@
-<h1>Time for next word</h1>
 <h1 id="timeleft"></h1>
 <h1 id="word"></h1>
 <div id="freestyle_data"
-  time_per_word=<%= @freestyle_session.time_per_word %>>
+  seconds_per_word=<%= Map.fetch!(@freestyle_session, "seconds_per_word") %>
+  difficulty=<%= Map.fetch!(@freestyle_session, "difficulty") %>>
 </div>
 <div>
 <%= link "Go Back", to: Routes.freestyle_path(@conn, :index) %>
@@ -10,23 +10,41 @@
 
 
 <script>
-function getWords() {
-    fetch('./api/application.json')
-        .then(
-            function(response) {
-                if (response.status !== 200) {
-                    return
-                }
-            }
+    async function getWords(difficulty, words) {
+        await fetch("/api", {
+           method: 'post',
+           body : 'difficulty='.concat(difficulty),
+           headers: {"Content-type": "application/x-www-form-urlencoded; charset=UTF-8"}
+       })
+       .then(response => response.json())
+       .then(json =>  {
+           words.push(...json.words)})
+   }
 
-            response.json().then(function(data)) {
-                return data
+    const seconds_per_word = parseInt(document.getElementById('freestyle_data').getAttribute('seconds_per_word'))
+    const difficulty = document.getElementById('freestyle_data').getAttribute('difficulty')
+    var time_left = seconds_per_word
+    var words = []
+    getWords(difficulty, words)
+    var countDown = 3
+    var x = setInterval(function() {
+        if (countDown > 0) {
+        document.getElementById('timeleft').innerHTML = countDown
+        document.getElementById('word').innerHTML = ''
+        countDown -= 1
+        } else {
+        if (time_left == seconds_per_word) {
+            document.getElementById('word').innerHTML = words.shift()
+            if (words.length == 0) {
+                getWords(difficulty, words)
             }
-        )
-        .catch(function(err)) {
-            console.log('Fetch Error', err)
         }
-}
+        document.getElementById('timeleft').innerHTML = time_left
+        time_left -= 1
+        if (time_left == 0) {
+            time_left = seconds_per_word
+        }
+    }}, 1000)
 
 
 </script>
