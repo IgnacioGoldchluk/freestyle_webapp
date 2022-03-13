@@ -6,6 +6,10 @@ defmodule FreestyleWeb.FreestyleController do
     render(conn, "new_session.html")
   end
 
+  def new(conn, _params) do
+    render(conn, "new_session.html")
+  end
+
   def create(conn, %{"duration" => "Infinite"} = params) do
     params =
       Map.put(params, "seconds_per_word", seconds_per_word(Map.fetch!(params, "difficulty")))
@@ -39,6 +43,7 @@ defmodule FreestyleWeb.FreestyleController do
       "Easy" -> 10
       "Medium" -> 6
       "Hard" -> 5
+      "Extreme" -> 3
     end
   end
 end

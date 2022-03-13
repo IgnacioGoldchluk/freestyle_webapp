@@ -6,6 +6,6 @@ defmodule FreestyleWeb.FreestyleView do
   end
 
   def difficulties() do
-    ["Easy", "Medium", "Hard"]
+    ["Easy", "Medium", "Hard", "Extreme"]
   end
 end
