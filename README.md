@@ -1,4 +1,4 @@
-# Freestyle
+# Freestyle v0.1
 
 Play here: https://freestyle.gigalixirapp.com/
 
